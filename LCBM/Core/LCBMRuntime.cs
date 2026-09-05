@@ -6,18 +6,23 @@ namespace LCBM.Core
         {
                private  static LCBaseModPlugin _plugin;
 
-                public static void Initialize(LCBaseModPlugin lCBaseMod )
+                public static bool Initialize(LCBaseModPlugin lCBaseMod )
                 {
                         _plugin = lCBaseMod;
 
-                       
-                        LCBMLogger.Initialize(_plugin);
+                        bool flag = true;
 
-                        LCBMAssetManager.Initialize();
+                        flag = flag && LCBMLogger.Initialize(_plugin);
 
-                        LCBMConfig.Initialize(_plugin);
+                        flag = flag && LCBMAssetManager.Initialize();
 
-                        LCBMHarmonyManager.Initialize();
+                        flag = flag && LCBMConfig.Initialize(_plugin);
+
+                        flag = flag && LCBMHarmonyManager.Initialize();
+
+
+                        return flag;
+
                 }
 
                 public static void Shutdown()

@@ -6,6 +6,8 @@ namespace LCBM.API
 {
         interface ILCBaseModPlugin
         {
+                string DisPlayName { get; }
+                string GUID { get; }
                 void Initialize(ILCBaseModContext context);
         }
 }

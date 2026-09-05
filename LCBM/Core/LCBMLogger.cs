@@ -11,14 +11,14 @@ namespace LCBM.Core
 
                 private static ManualLogSource Logger;
 
-                public static void Initialize(LCBaseModPlugin plugin)
+                internal static bool Initialize(LCBaseModPlugin plugin)
                 {
                         Logger = plugin.PluginLogger;
-
+                        return true;
                 }
-                public static void Shutdown()
+                internal static void Shutdown()
                 {
-
+                        
                 }
 
 
@@ -42,6 +42,17 @@ namespace LCBM.Core
                 {
                         Logger.LogWarning(message);
 
+                }
+
+
+                public static void Fatal(string message)
+                {
+                        Logger.LogFatal(message);
+                }
+
+                public static void Exception(Exception ex)
+                {
+                        Logger.LogError(ex.ToString());
                 }
 
 

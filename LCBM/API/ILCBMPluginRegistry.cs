@@ -1,10 +1,15 @@
-﻿using System;
+﻿
+using Mono.Collections.Generic;
 using System.Collections.Generic;
-using System.Text;
 
 namespace LCBM.API
 {
-        internal interface ILCBMPluginRegistry
+        interface ILCBMPluginRegistry
         {
+                ReadOnlyCollection<ILCBaseModPlugin> Plugins { get; }
+
+                ILCBaseModPlugin Get(string guid);
+
+                bool IsRegistered(string guid);
         }
 }
