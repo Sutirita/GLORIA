@@ -8,7 +8,7 @@ namespace LCBM
 
                 public const string PLUGIN_NAME = "LCBaseMod";
 
-                public const string PLUGIN_VERSION = "0.2.7";
+                public const string PLUGIN_VERSION = "0.2.8";
 
                 public static string PluginVertionDescStr = $"\n{PLUGIN_NAME} {PLUGIN_VERSION}ver\nMade by Sutirita.";
 
