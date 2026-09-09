@@ -7,9 +7,11 @@ namespace LCBM.API.Event
 {
         public interface IEventBus
         {
-                void Subscribe<IEvent>(IModPlugin plugin);
+                void Subscribe<T>(IModPlugin plugin, EventListener<T> listener) where T : IBaseEvent;
 
-                void UnSubscribe<IEvent>(IModPlugin plugin);
+                void UnSubscribe<T>(IModPlugin plugin, EventListener<T> listener) where T : IBaseEvent;
+
+                void Publish<T>(T evt) where T : IBaseEvent;
         }
 
 }

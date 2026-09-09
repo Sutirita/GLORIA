@@ -4,10 +4,8 @@ using System.Text;
 
 namespace LCBM.API.Event
 {
-         interface ISubscriber
+        public interface IBaseEvent
         {
-
-
 
         }
 }
