@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LCBM.API
+namespace LCBM.API.Map
 {
-        internal interface ILCBaseModContext
+        enum LEFTRIGHT
         {
+
+                LEFT,
+                RIGHT
         }
 }

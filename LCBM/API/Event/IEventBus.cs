@@ -1,10 +1,15 @@
-﻿using System;
+﻿using LCBM.API.Core;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace LCBM.LCBM.API.Event
+namespace LCBM.API.Event
 {
-        internal interface IEventBus
+        public interface IEventBus
         {
+                void Subscribe<IEvent>(IModPlugin plugin);
+
+                void UnSubscribe<IEvent>(IModPlugin plugin);
         }
+
 }
