@@ -1,14 +1,13 @@
-﻿using LCBM.API;
-using Mono.Collections.Generic;
-using System;
+﻿
 using System.Collections.Generic;
 
+using LCBM.API.Core;
 
-namespace LCBM.API.Core.Impl
+namespace LCBM.Core
 {
-        internal class LCBMPluginRegistry : IModluginRegistry
+        public class LCBMPluginRegistry : IModluginRegistry
         {
-                private static Dictionary<string,IModPlugin> _pluginLib = new Dictionary<string, IModPlugin> ();
+                private static Dictionary<string, IModPlugin> _pluginLib = new Dictionary<string, IModPlugin>();
 
                 IEnumerable<IModPlugin> IModluginRegistry.Plugins => _pluginLib.Values;
 
@@ -17,13 +16,13 @@ namespace LCBM.API.Core.Impl
                 {
                         _pluginLib.Clear();
 
-                       
+
                 }
 
 
                 IModPlugin IModluginRegistry.Get(string guid)
                 {
-                        if(!_pluginLib.TryGetValue(guid, out IModPlugin plugin)) return null;
+                        if (!_pluginLib.TryGetValue(guid, out IModPlugin plugin)) return null;
                         return plugin;
                 }
 
@@ -31,7 +30,7 @@ namespace LCBM.API.Core.Impl
                 {
                         if (!_pluginLib.TryGetValue(guid, out IModPlugin plugin)) return false;
 
-                        return _pluginLib is null; 
+                        return _pluginLib is null;
                 }
         }
 }

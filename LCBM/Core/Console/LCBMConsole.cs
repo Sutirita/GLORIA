@@ -30,7 +30,7 @@ namespace LCBM.Core.Console
         }
 
 
-        public struct LogEntry
+        internal struct LogEntry
         {
                 public string message;
                 public Color color;
@@ -46,56 +46,32 @@ namespace LCBM.Core.Console
                 }
         }
 
-
-
-
-
-        public sealed class Console
+        public static class LCBMConsole
         {
-                private static Console _instance;
-                public static Console Instance
-                {
-                        get
-                        {
-                                if (_instance is null)
-                                {
-                                        _instance = new Console();
-                                }
-                                return _instance;
-                        }
-                }
+
+                internal static readonly List<LogEntry> LogEntrys = new List<LogEntry>();
+
+                private static readonly Stack<string> InputHistoryStackA = new Stack<string>();
+
+                private static readonly Stack<string> InputHistoryStackB = new Stack<string>();
 
 
-                public List<LogEntry> LogEntrys = new List<LogEntry>();
+                private static readonly CommandContext _commandContext;
 
-                private Stack<string> InputHistoryStackA = new Stack<string>();
-
-                private Stack<string> InputHistoryStackB = new Stack<string>();
-
-
-                private CommandContext _commandContext;
-
-                public CommandContext CurrentContext => _commandContext;
-
-
-
+                public static CommandContext CurrentContext => _commandContext;
 
                 private static CommandResult RunCommand(string input, CommandContext context)
                 {
                         return CommandResult.Success;
                 }
-
-
-
-
-                public string ViewInputHistoryUP()
+                internal static string ViewInputHistoryUP()
                 {
                         if (InputHistoryStackA.Count == 0) return "";
                         string value = InputHistoryStackA.Pop();
                         InputHistoryStackB.Push(value);
                         return value;
                 }
-                public string ViewInputHistoryDown()
+                internal static string ViewInputHistoryDown()
                 {
                         if (InputHistoryStackB.Count == 0) return "";
                         string value = InputHistoryStackB.Pop();
@@ -103,7 +79,7 @@ namespace LCBM.Core.Console
                         return value;
                 }
 
-                private void UpdateInputHistory(string value)
+                private static void UpdateInputHistory(string value)
                 {
                         while (InputHistoryStackB.Count > 0)
                         {
@@ -115,12 +91,12 @@ namespace LCBM.Core.Console
 
 
 
-                public void Log(string message, Color color, int fontSize = 24, bool bold = false)
+                public static void Log(string message, Color color, int fontSize = 24, bool bold = false)
                 {
                         LogEntrys.Add(new LogEntry(message, color, fontSize, bold));
                 }
 
-                public void Log(string message) // 默认白色
+                public static void Log(string message) // 默认白色
                 {
                         Log(message, Color.white);
                 }
@@ -128,7 +104,7 @@ namespace LCBM.Core.Console
 
 
 
-                public void OnSubmit(string value)
+                internal static void OnSubmit(string value)
                 {
 
                         Log(value);

@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using static LCBM.Core.Console.IBaseCommand;
 
-namespace LCBM.Core.Console
+using LCBM.Core.Console;
+
+namespace LCBM.API.Core.Console
 {
-        public interface IBaseCommand
+        public interface ICommand
         {
                 /// <summary>
                 /// 命令的执行
@@ -18,7 +19,7 @@ namespace LCBM.Core.Console
 
         }
 
-        public interface ICommandWithSuggestions : IBaseCommand
+        public interface ICommandWithSuggestions : ICommand
         {
                 /// <summary>
                 /// 在输入命令参数时建议值

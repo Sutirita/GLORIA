@@ -34,6 +34,7 @@ namespace LCBM.Harmony
 
                 }
 
+                //更改武器伤害范围显示符号
 
                 [HarmonyPostfix]
                 [HarmonyPatch(typeof(CreatureInfoEquipmentRoot))]
@@ -41,8 +42,6 @@ namespace LCBM.Harmony
                 [HarmonyPatch(new Type[] { })]
                 public static void HP_Initialize(CreatureInfoEquipmentRoot __instance)
                 {
-
-
                         WeaponSlot weaponSlot = __instance.weaponSlot;
                         weaponSlot.DamageRange.text = weaponSlot.DamageRange.text.Replace("-", "~");
                         weaponSlot.AttackSpeed.horizontalOverflow = HorizontalWrapMode.Overflow;

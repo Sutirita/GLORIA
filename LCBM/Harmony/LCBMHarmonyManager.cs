@@ -18,8 +18,6 @@ namespace LCBM.Harmony
                         {
                                 _harmony = new HarmonyLib.Harmony(LCBMStaticData.PLUGIN_GUID);
 
-
-
                                 _harmony.PatchAll(typeof(HP_Basic));
 
                                 _harmony.PatchAll(typeof(HP_Basic.LoadResearchDescData_LogPatch));

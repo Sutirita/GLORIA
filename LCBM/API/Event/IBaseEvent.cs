@@ -6,6 +6,6 @@ namespace LCBM.API.Event
 {
         public interface IBaseEvent
         {
-
+                //event marker interface
         }
 }

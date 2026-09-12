@@ -4,7 +4,7 @@ using System.Text;
 
 namespace LCBM.API.Entity
 {
-        internal interface ICreature
+        public interface ICreature
         {
                 IEnumerable<IChildCreature> Children { get; }
 

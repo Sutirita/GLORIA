@@ -12,7 +12,7 @@ namespace LCBM.API.Mangement
 
                 IEnumerable<IAgent> Agents { get; }
 
-                IEnumerable<Iofficer> Officers { get; }
+                IEnumerable<IOfficer> Officers { get; }
 
                 IEnumerable<ICreature> Creatures { get; }
 

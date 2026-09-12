@@ -4,7 +4,7 @@ using System.Text;
 
 namespace LCBM.API.Entity
 {
-        internal interface Iofficer
+        public interface IOfficer
         {
         }
 }

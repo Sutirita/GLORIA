@@ -8,6 +8,9 @@ namespace LCBM.Core.Console
 {
         internal static class ConsoleTools
         {
+
+
+
                 public static string  LogEntryToRichText(LogEntry entry)
                 {
                         string colorHex = ColorUtility.ToHtmlStringRGB(entry.color);
@@ -99,6 +102,8 @@ namespace LCBM.Core.Console
                         }
                         return result;
                 }
+
+
 
 
         }

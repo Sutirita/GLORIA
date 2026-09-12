@@ -1,16 +1,14 @@
-﻿using LCBM.API.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
+using LCBM.API.Event;
+using LCBM.API.Core;
 
-namespace LCBM.API.Event.Impl
+namespace LCBM.Event
 {
-        internal class LCBMEventBus : IEventBus
+        public class LCBMEventBus : IEventBus
         {
                 //类型，插件，监听器列表 三维字典
-                readonly static Dictionary<Type, Dictionary<IModPlugin, List<Delegate>>> _subscribeLib = new Dictionary<Type, Dictionary<IModPlugin, List<Delegate>>>();
+                private readonly static Dictionary<Type, Dictionary<IModPlugin, List<Delegate>>> _subscribeLib = new Dictionary<Type, Dictionary<IModPlugin, List<Delegate>>>();
 
                 //订阅事件
                 public void Subscribe<T>(IModPlugin plugin, EventListener<T> listener) where T : IBaseEvent
@@ -37,7 +35,7 @@ namespace LCBM.API.Event.Impl
                 }
 
 
-                public  void UnSubscribe<T>(IModPlugin plugin, EventListener<T> listener) where T : IBaseEvent
+                public void Unsubscribe<T>(IModPlugin plugin, EventListener<T> listener) where T : IBaseEvent
                 {
                         Type EventType = typeof(T);
 
@@ -46,10 +44,14 @@ namespace LCBM.API.Event.Impl
                         if (!SubscribeInfo.TryGetValue(plugin, out List<Delegate> ListenerList)) return;
 
                         ListenerList.Remove(listener);
+
+                        if (ListenerList.Count == 0) SubscribeInfo.Remove(plugin);
+
+                        if (SubscribeInfo.Count == 0) _subscribeLib.Remove(EventType);
                 }
 
 
-                public  void Publish<T>(T evt) where T : IBaseEvent
+                public void Publish<T>(T evt) where T : IBaseEvent
                 {
                         Type EventType = typeof(T);
 
@@ -59,18 +61,11 @@ namespace LCBM.API.Event.Impl
                         {
                                 foreach (Delegate var in ListenerList)
                                 {
-                                        if (var is EventListener<T> listener)
-                                        {
-                                                listener(evt);
-                                        }
+                                        if (!(var is EventListener<T> listener)) continue;
+                                        listener(evt);
                                 }
-
                         }
-
                 }
-
-
-
 
         }
 }

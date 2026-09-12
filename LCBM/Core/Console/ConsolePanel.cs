@@ -60,7 +60,7 @@ namespace LCBM.Core.Console
 
                         if (Input.GetKeyDown(KeyCode.UpArrow))
                         {
-                                string value = Console.Instance.ViewInputHistoryUP();
+                                string value = LCBMConsole.ViewInputHistoryUP();
                                 if (string.IsNullOrEmpty(value)) return;
                                 inputField.text = value;
                                 inputField.Select();
@@ -69,7 +69,7 @@ namespace LCBM.Core.Console
                         }
                         if (Input.GetKeyDown(KeyCode.DownArrow))
                         {
-                                string value = Console.Instance.ViewInputHistoryDown();
+                                string value = LCBMConsole.ViewInputHistoryDown();
                                 if (string.IsNullOrEmpty(value)) return;
                                 inputField.text = value;
                                 inputField.Select();
@@ -259,12 +259,12 @@ namespace LCBM.Core.Console
                         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
                         {
                                 if (string.IsNullOrEmpty(value)) return;
-                                Console.Instance.OnSubmit(value);
+                                LCBMConsole.OnSubmit(value);
                                 inputField.text = "";
                                 inputField.ActivateInputField();
                                 Canvas.ForceUpdateCanvases();
                                 scrollRect.verticalNormalizedPosition = 0f;
-                                UpdateConsoleHistory(Console.Instance.LogEntrys);
+                                UpdateConsoleHistory(LCBMConsole.LogEntrys);
 
                         }
                 }

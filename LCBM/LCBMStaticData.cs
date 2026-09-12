@@ -14,12 +14,6 @@ namespace LCBM
 
                 public static string PluginVertionDescStr = $"\n{PLUGIN_NAME} {PLUGIN_VERSION}ver\nMade by Sutirita.";
 
-
-
-
-
-
-
                 //Dir
 
                 public static readonly string PluginRootDirPath = Path.Combine(BepInEx.Paths.PluginPath, "Sutirita-LCBaseMod");
