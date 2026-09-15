@@ -8,7 +8,7 @@ namespace GLORIA
                 //plugininfo
                 public const string PLUGIN_GUID = "com.Sutirita.LobotomyCropBaseMod";
 
-                public const string PLUGIN_NAME = "LCBaseMod";
+                public const string PLUGIN_NAME = "GLORIA";
 
                 public const string PLUGIN_VERSION = "0.2.8";
 
@@ -16,7 +16,7 @@ namespace GLORIA
 
                 //Dir
 
-                public static readonly string PluginRootDirPath = Path.Combine(BepInEx.Paths.PluginPath, "Sutirita-LCBaseMod");
+                public static readonly string PluginRootDirPath = Path.Combine(BepInEx.Paths.PluginPath, "Sutirita-GLORIA");
 
                 public static readonly string DataDirPath = Path.Combine(PluginRootDirPath, "Data");
 
@@ -29,7 +29,7 @@ namespace GLORIA
 
                 //res
 
-                public const string ConfigDescRes = "LCBM.Properties.LCBMConfigDesc.xml";
+                public const string ConfigDescRes = "GLORIA.Properties.ConfigDesc.xml";
 
 
 
