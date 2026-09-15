@@ -1,6 +1,6 @@
 # General Lobotomy Enrichment API
 
-![gloria](https://github.com/Sutirita/Sutirita/blob/main/img/gloria.png)
+<img src="https://github.com/Sutirita/Sutirita/blob/main/img/gloria.png width = "25" height = "256" div align=right />
 
 ## 概述
 
