@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 
-namespace LCBM.Core.Console
+namespace GLORIA.Core.Console
 {
         internal static class ConsoleTools
         {

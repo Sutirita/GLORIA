@@ -1,7 +1,7 @@
-﻿using LCBM.API.Entity;
+﻿using GLORIA.API.Entity;
 
 
-namespace LCBM.API.Event
+namespace GLORIA.API.Event
 {
         public interface IOfficerEvent:IBaseEvent
         {

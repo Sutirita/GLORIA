@@ -1,9 +1,9 @@
-﻿using LCBM.API.Map;
+﻿using GLORIA.API.Map;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace LCBM.API.Mangement
+namespace GLORIA.API.Mangement
 {
         internal interface IFacility
         {

@@ -1,15 +1,13 @@
-﻿using LCBM;
-using LCBM.Core;
+﻿using GLORIA;
+using GLORIA.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Text;
-using static Mono.Security.X509.X520;
 
-namespace LCBM.Asset
+namespace GLORIA.Asset
 {
-        internal static class LCBMAssetManager
+        internal static class AssetManager
         {
                 internal static Assembly LCBMAssembly;
 
@@ -24,8 +22,8 @@ namespace LCBM.Asset
                         }
                         catch (Exception e)
                         {
-                                LCBMLogger.Fatal("Failed to initialize AssetManager.");
-                                LCBMLogger.Exception(e);
+                                Logger.Fatal("Failed to initialize AssetManager.");
+                                Logger.Exception(e);
                         }
 
                         return flag;
@@ -33,12 +31,12 @@ namespace LCBM.Asset
 
                 internal static void Debug()
                 {
-                        LCBMLogger.Info("-----ALLManifestResource-----");
+                        Logger.Info("-----ALLManifestResource-----");
                         foreach (string name in LCBMAssembly.GetManifestResourceNames())
                         {
-                                LCBMLogger.Info(name);
+                                Logger.Info(name);
                         }
-                        LCBMLogger.Info("-----------------------------");
+                        Logger.Info("-----------------------------");
                 }
 
                 public static Stream LoadResourceStream(string ResName)

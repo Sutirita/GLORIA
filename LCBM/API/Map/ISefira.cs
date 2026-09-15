@@ -1,10 +1,10 @@
-﻿using LCBM.API.Entity;
+﻿using GLORIA.API.Entity;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace LCBM.API.Mangement
+namespace GLORIA.API.Mangement
 {
         internal interface ISefira
         {

@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
-namespace LCBM.Core.Console
+namespace GLORIA.Core.Console
 {
 
 
@@ -60,7 +60,7 @@ namespace LCBM.Core.Console
 
                         if (Input.GetKeyDown(KeyCode.UpArrow))
                         {
-                                string value = LCBMConsole.ViewInputHistoryUP();
+                                string value = Console.ViewInputHistoryUP();
                                 if (string.IsNullOrEmpty(value)) return;
                                 inputField.text = value;
                                 inputField.Select();
@@ -69,7 +69,7 @@ namespace LCBM.Core.Console
                         }
                         if (Input.GetKeyDown(KeyCode.DownArrow))
                         {
-                                string value = LCBMConsole.ViewInputHistoryDown();
+                                string value = Console.ViewInputHistoryDown();
                                 if (string.IsNullOrEmpty(value)) return;
                                 inputField.text = value;
                                 inputField.Select();
@@ -236,7 +236,7 @@ namespace LCBM.Core.Console
                         inputField.onEndEdit.AddListener((string value) => InputListener(value));
 
 
-                        SetPlaceholderText(LCBMStaticData.CONSOLE_PLACEHOLDER);
+                        SetPlaceholderText(StaticData.CONSOLE_PLACEHOLDER);
 
 
 
@@ -259,12 +259,12 @@ namespace LCBM.Core.Console
                         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
                         {
                                 if (string.IsNullOrEmpty(value)) return;
-                                LCBMConsole.OnSubmit(value);
+                                Console.OnSubmit(value);
                                 inputField.text = "";
                                 inputField.ActivateInputField();
                                 Canvas.ForceUpdateCanvases();
                                 scrollRect.verticalNormalizedPosition = 0f;
-                                UpdateConsoleHistory(LCBMConsole.LogEntrys);
+                                UpdateConsoleHistory(Console.LogEntrys);
 
                         }
                 }

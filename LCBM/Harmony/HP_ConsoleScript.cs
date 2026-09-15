@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using System;
 using UnityEngine;
-namespace LCBM.Harmony
+namespace GLORIA.Harmony
 {
         //unuse
         class HP_ConsoleScript

@@ -3,7 +3,7 @@ using CreatureInfo;
 using HarmonyLib;
 using UnityEngine;
 
-namespace LCBM.Harmony
+namespace GLORIA.Harmony
 {
         //unuse
         internal class HP_CreatureInfoUI

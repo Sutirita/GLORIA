@@ -1,6 +1,6 @@
-﻿using LCBM.API.Entity;
+﻿using GLORIA.API.Entity;
 
-namespace LCBM.API.Event
+namespace GLORIA.API.Event
 {
         interface IAgentEvent : IBaseEvent
         {

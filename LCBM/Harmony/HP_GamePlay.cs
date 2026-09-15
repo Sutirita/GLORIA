@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
 
-namespace LCBM.Harmony
+namespace GLORIA.Harmony
 {
         //unuse
         class HP_GamePlay

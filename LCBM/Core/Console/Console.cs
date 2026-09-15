@@ -6,7 +6,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace LCBM.Core.Console
+namespace GLORIA.Core.Console
 {
         /// <summary>
         /// 命令的执行结果
@@ -46,7 +46,7 @@ namespace LCBM.Core.Console
                 }
         }
 
-        public static class LCBMConsole
+        public static class Console
         {
 
                 internal static readonly List<LogEntry> LogEntrys = new List<LogEntry>();

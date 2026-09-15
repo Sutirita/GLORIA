@@ -1,6 +1,6 @@
-﻿using LCBM.API.Core;
-using LCBM.Event;
-namespace LCBM.API.Event
+﻿using GLORIA.API.Core;
+using GLORIA.Event;
+namespace GLORIA.API.Event
 {
         public interface IEventBus
         {

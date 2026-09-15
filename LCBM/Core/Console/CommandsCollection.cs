@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using LCBM.API.Core.Console;
+using GLORIA.API.Core.Console;
 
-namespace LCBM.Core.Console
+namespace GLORIA.Core.Console
 {
         internal class CommandsCollection
         {
@@ -13,7 +13,7 @@ namespace LCBM.Core.Console
                 {
                         CommandResult ICommand.Execute(string[] args, CommandContext context)
                         {
-                                LCBMConsole.Log("This is Help Command");
+                                Console.Log("This is Help Command");
                                 return CommandResult.Success;
                         }
                 }
@@ -25,7 +25,7 @@ namespace LCBM.Core.Console
                 {
                         CommandResult ICommand.Execute(string[] args, CommandContext context)
                         {
-                                LCBMConsole.Log("This is Test1");
+                                Console.Log("This is Test1");
                                 return CommandResult.Success;
                         }
                 }
@@ -33,7 +33,7 @@ namespace LCBM.Core.Console
                 {
                         CommandResult ICommand.Execute(string[] args, CommandContext context)
                         {
-                                LCBMConsole.Log("This is Test2");
+                                Console.Log("This is Test2");
                                 return CommandResult.Success;
                         }
                 }

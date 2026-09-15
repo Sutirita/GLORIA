@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Inventory;
-using LCBM.Core;
+using GLORIA.Core;
 
-namespace LCBM.Harmony
+namespace GLORIA.Harmony
 {
 
         //unuse
@@ -22,7 +22,7 @@ namespace LCBM.Harmony
                 [HarmonyPatch(new Type[] { typeof(DefenseInfo), typeof(Text[]), typeof(bool) })]
                 public static bool HP_DefenseSetFactor(DefenseInfo defenseInfo, Text[] text, bool bracket = false)
                 {
-                        int acc = LCBMConfig.Precision_Defense.Value;
+                        int acc = ConfigManual.Precision_Defense.Value;
                         string format = bracket ? "({0:F" + acc + "})" : "{0:F" + acc + "}";
 
                         text[0].text = string.Format(format, defenseInfo.R);
@@ -146,7 +146,7 @@ namespace LCBM.Harmony
                 [HarmonyPrefix, HarmonyPatch(typeof(UICommonTextConverter), "GetPercentText", new Type[] { typeof(float) })]
                 public static bool HP_UICommonTextConverter(ref string __result, float rate)
                 {
-                        int acc = LCBMConfig.Precision_WorkPorb.Value;
+                        int acc = ConfigManual.Precision_WorkPorb.Value;
                         __result = string.Format("{0:F" + acc + "}", (rate * 100f)) + "%";
 
                         return false;
@@ -175,7 +175,7 @@ namespace LCBM.Harmony
                         {
                                 return;
                         }
-                        int acc = LCBMConfig.Precision_WorkPorb.Value;
+                        int acc = ConfigManual.Precision_WorkPorb.Value;
                         float ws = (float)currentCreature.metaInfo.feelingStateCubeBounds.GetLastBound() / (currentCreature.GetCubeSpeed() * (1f + (float)(currentCreature.GetObserveBonusSpeed() + currentAgent.workSpeed) / 100f));
                         __instance.WorkSpeed.text = string.Format("{0:F" + acc + "}s", ws);
 
@@ -250,7 +250,7 @@ namespace LCBM.Harmony
                                 Sprite DamageIconOutSprite = effect.DamageIconOut[(int)type];
                                 if (__instance != null)
                                 {
-                                        int acc = LCBMConfig.Precision_Damage.Value;
+                                        int acc = ConfigManual.Precision_Damage.Value;
                                         if (type == RwbpType.P && __instance is WorkerModel)
                                         {
                                                 effect.DamageCount.text = string.Format("{0:F" + acc + "}", value);
@@ -689,7 +689,7 @@ namespace LCBM.Harmony
                 [HarmonyPostfix, HarmonyPatch(typeof(CreatureUnit), "Update")]
                 public static void HP_CreatureUnit(CreatureUnit __instance)
                 {
-                        int acc = LCBMConfig.Precision_CreatureHP.Value;
+                        int acc = ConfigManual.Precision_CreatureHP.Value;
                         if (__instance.hpSlider.gameObject.activeInHierarchy)
                         {
                                 //移除之前的血量信息
@@ -722,7 +722,7 @@ namespace LCBM.Harmony
                 [HarmonyPostfix, HarmonyPatch(typeof(AgentSlot), "UpdateUI")]
                 public static void HP_AgentSlot(AgentSlot __instance)
                 {
-                        int acc = LCBMConfig.Precision_AgentStat.Value;
+                        int acc = ConfigManual.Precision_AgentStat.Value;
                         string curhp = string.Format("{0:F" + acc + "}", __instance.CurrentAgent.hp);
                         string curmp = string.Format("{0:F" + acc + "}", __instance.CurrentAgent.mental);
                         __instance.HealthText.text = $"{curhp}/{__instance.CurrentAgent.maxHp}";

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LCBM.API.Map
+namespace GLORIA.API.Map
 {
         internal interface ISefiraLocationInfo
         {

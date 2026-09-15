@@ -1,9 +1,9 @@
-﻿using LCBM.API.Entity;
+﻿using GLORIA.API.Entity;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace LCBM.API.Core
+namespace GLORIA.API.Core
 {
         public interface IModContext
         {

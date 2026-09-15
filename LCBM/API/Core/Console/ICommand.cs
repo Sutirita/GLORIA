@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using LCBM.Core.Console;
+using GLORIA.Core.Console;
 
-namespace LCBM.API.Core.Console
+namespace GLORIA.API.Core.Console
 {
         public interface ICommand
         {

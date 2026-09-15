@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace LCBM.API.Core
+namespace GLORIA.API.Core
 {
         public interface IModluginRegistry
         {

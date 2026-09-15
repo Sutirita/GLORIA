@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using LCBM.API.Event;
-using LCBM.API.Core;
+using GLORIA.API.Event;
+using GLORIA.API.Core;
 
-namespace LCBM.Event
+namespace GLORIA.Event
 {
-        public class LCBMEventBus : IEventBus
+        public class BasicEventBus : IEventBus
         {
                 //类型，插件，监听器列表 三维字典
                 private readonly static Dictionary<Type, Dictionary<IModPlugin, List<Delegate>>> _subscribeLib = new Dictionary<Type, Dictionary<IModPlugin, List<Delegate>>>();

@@ -1,21 +1,21 @@
 ﻿using System;
 using BepInEx;
 using BepInEx.Logging;
-using LCBM.Core;
+using GLORIA.Core;
 
 
-namespace LCBM
+namespace GLORIA
 {
-        [BepInPlugin(LCBMStaticData.PLUGIN_GUID, LCBMStaticData.PLUGIN_NAME, LCBMStaticData.PLUGIN_VERSION)]
+        [BepInPlugin(StaticData.PLUGIN_GUID, StaticData.PLUGIN_NAME, StaticData.PLUGIN_VERSION)]
         [BepInProcess("LobotomyCorp.exe")]
-        public sealed class LCBaseModPlugin : BaseUnityPlugin
+        public sealed class MainPlugin : BaseUnityPlugin
         {
                 internal ManualLogSource PluginLogger => Logger;
 
                 void Awake()
                 {
                         Logger.LogInfo("Initializing...");
-                        bool flag = LCBMRuntime.Initialize(this);
+                        bool flag = Runtime.Initialize(this);
                         if (!flag) Logger.LogFatal("Failed to initialize Runtime.");
 
                 }
@@ -24,7 +24,7 @@ namespace LCBM
                 //关闭
                 void OnDestroy()
                 {
-                        LCBMRuntime.Shutdown();
+                        Runtime.Shutdown();
                 }
 
 

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LCBM.Properties {
+namespace GLORIA.Properties {
     using System;
     
     

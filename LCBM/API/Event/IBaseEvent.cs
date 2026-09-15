@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LCBM.API.Event
+namespace GLORIA.API.Event
 {
         public interface IBaseEvent
         {

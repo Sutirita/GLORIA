@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace LCBM.Harmony
+namespace GLORIA.Harmony
 {
         //unuse
 
@@ -19,7 +19,7 @@ namespace LCBM.Harmony
                 public static void HP_NTCS(NewTitleScript __instance)
                 {
                         //显示版本号
-                        __instance.GameVersionChecker.text += LCBMStaticData.PluginVertionDescStr;
+                        __instance.GameVersionChecker.text += StaticData.PluginVertionDescStr;
 
                         //添加MOD按钮
                         //MOD管理页面待做，暂时复制设置按钮
@@ -64,7 +64,7 @@ namespace LCBM.Harmony
                 public static void HP_ATCS(AlterTitleController __instance)
                 {
                         //显示版本号
-                        __instance.GameVersionChecker.text += LCBMStaticData.PluginVertionDescStr;
+                        __instance.GameVersionChecker.text += StaticData.PluginVertionDescStr;
 
 
                         //添加MOD按钮

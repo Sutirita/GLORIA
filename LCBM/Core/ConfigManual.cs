@@ -1,13 +1,13 @@
 ﻿using BepInEx.Configuration;
-using LCBM.Asset;
+using GLORIA.Asset;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 
-namespace LCBM.Core
+namespace GLORIA.Core
 {
-        internal class LCBMConfig
+        internal class ConfigManual
         {
                 private static ConfigFile _configFile;
 
@@ -50,7 +50,7 @@ namespace LCBM.Core
                 //------------------------------------
 
 
-                public static bool Initialize(LCBaseModPlugin plugin)
+                public static bool Initialize(MainPlugin plugin)
                 {
 
 
@@ -90,8 +90,8 @@ namespace LCBM.Core
                         }
                         catch (Exception e)
                         {
-                                LCBMLogger.Error("Failed to initialize Config.");
-                                LCBMLogger.Exception(e);
+                                Logger.Error("Failed to initialize Config.");
+                                Logger.Exception(e);
                         }
 
                         return flag;
@@ -102,11 +102,11 @@ namespace LCBM.Core
                 }
 
 
-                private static string GetConfigDesc(string key, string lang = LCBMStaticData.DEFAULT_LANG)
+                private static string GetConfigDesc(string key, string lang = StaticData.DEFAULT_LANG)
                 {
-                        if (!_descLib[lang].TryGetValue(key, out string Desc)) return LCBMStaticData.DESC_NO_FOUND;
+                        if (!_descLib[lang].TryGetValue(key, out string Desc)) return StaticData.DESC_NO_FOUND;
 
-                        if (String.IsNullOrEmpty(Desc)) return LCBMStaticData.DESC_NO_FOUND;
+                        if (String.IsNullOrEmpty(Desc)) return StaticData.DESC_NO_FOUND;
 
                         return Desc;
 
@@ -114,7 +114,7 @@ namespace LCBM.Core
 
                 private static ConfigEntry<T> BindConfig<T>(string section, string key, T defaultValue, string Desc)
                 {
-                        ConfigDescription configDescription = new ConfigDescription(Desc, null, LCBMStaticData.EmptyObjList);
+                        ConfigDescription configDescription = new ConfigDescription(Desc, null, StaticData.EmptyObjList);
 
                         ConfigEntry<T> configEntry = _configFile.Bind<T>(section, key, defaultValue, configDescription);
 
@@ -136,7 +136,7 @@ namespace LCBM.Core
                 private static void LoadConfigDesc()
                 {
 
-                        Stream stream = LCBMAssetManager.LoadResourceStream(LCBMStaticData.ConfigDescRes);
+                        Stream stream = AssetManager.LoadResourceStream(StaticData.ConfigDescRes);
                         XmlDocument ConfigxmlDocument = new XmlDocument();
                         ConfigxmlDocument.Load(stream);
 

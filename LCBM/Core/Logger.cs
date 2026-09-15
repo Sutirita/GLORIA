@@ -1,17 +1,17 @@
 ﻿using BepInEx.Logging;
-using LCBM;
+using GLORIA;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace LCBM.Core
+namespace GLORIA.Core
 {
-        internal class LCBMLogger
+        internal class Logger
         {
 
                 private static ManualLogSource Logger;
 
-                internal static bool Initialize(LCBaseModPlugin plugin)
+                internal static bool Initialize(MainPlugin plugin)
                 {
                         Logger = plugin.PluginLogger;
                         return true;

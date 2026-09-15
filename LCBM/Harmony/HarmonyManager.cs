@@ -1,12 +1,12 @@
 ﻿using HarmonyLib;
-using LCBM.Asset;
-using LCBM.Core;
+using GLORIA.Asset;
+using GLORIA.Core;
 using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
-namespace LCBM.Harmony
+namespace GLORIA.Harmony
 {
-        internal static class LCBMHarmonyManager
+        internal static class HarmonyManager
         {
                 private static HarmonyLib.Harmony _harmony;
 
@@ -16,7 +16,7 @@ namespace LCBM.Harmony
                         bool flag = false;
                         try
                         {
-                                _harmony = new HarmonyLib.Harmony(LCBMStaticData.PLUGIN_GUID);
+                                _harmony = new HarmonyLib.Harmony(StaticData.PLUGIN_GUID);
 
                                 _harmony.PatchAll(typeof(HP_Basic));
 
@@ -29,8 +29,8 @@ namespace LCBM.Harmony
                         }
                         catch (Exception e)
                         {
-                                LCBMLogger.Fatal("Failed to initialize HarmonyPatch.");
-                                LCBMLogger.Exception(e);
+                                Logger.Fatal("Failed to initialize HarmonyPatch.");
+                                Logger.Exception(e);
                         }
 
                         return flag;

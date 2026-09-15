@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 
-namespace LCBM
+namespace GLORIA
 {
-        internal class LCBMStaticData
+        internal class StaticData
         {
                 //plugininfo
                 public const string PLUGIN_GUID = "com.Sutirita.LobotomyCropBaseMod";

@@ -1,11 +1,11 @@
 ﻿
 using System.Collections.Generic;
 
-using LCBM.API.Core;
+using GLORIA.API.Core;
 
-namespace LCBM.Core
+namespace GLORIA.Core
 {
-        public class LCBMPluginRegistry : IModluginRegistry
+        public class PluginRegistry : IModluginRegistry
         {
                 private static Dictionary<string, IModPlugin> _pluginLib = new Dictionary<string, IModPlugin>();
 
