@@ -9,10 +9,9 @@ namespace GLORIA.API.Map
 
                 //走廊上下方只能与收容室相连
                 //走廊左右方不能与收容室相连
-
                 IHall GetHall(LEFTRIGHT direction);
                 IMapRoom GetRoom(LEFTRIGHT direction);
                 IElevator GetElevator(LEFTRIGHT direction);
-                IEnumerable<IContainRoom> GetContainRooms(UPDOWN direction);
+                IEnumerable<IContainmentRoom> GetContainRooms(UPDOWN direction);
         }
 }

@@ -1,12 +1,13 @@
-﻿using GLORIA.Asset;
+﻿using GLORIA.API;
+using GLORIA.Asset;
 using GLORIA.Harmony;
 namespace GLORIA.Core
 {
         internal class Runtime
         {
-               private  static MainPlugin _plugin;
+                private static MainPlugin _plugin;
 
-                public static bool Initialize(MainPlugin lCBaseMod )
+                public static bool Initialize(MainPlugin lCBaseMod)
                 {
                         _plugin = lCBaseMod;
 
@@ -20,6 +21,7 @@ namespace GLORIA.Core
 
                         flag = flag && HarmonyManager.Initialize();
 
+                        flag = flag && GLOBAL.Initialize();
 
                         return flag;
 

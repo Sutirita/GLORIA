@@ -6,7 +6,10 @@ namespace GLORIA.API.Entity
 {
         public interface ICreature
         {
-                IEnumerable<IChildCreature> Children { get; }
+
+                float HP { get; }
+                bool EscapeAble { get; }
+                IEnumerable<ICreatureDerivative> Children { get; }
 
 
         }

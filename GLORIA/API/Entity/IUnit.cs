@@ -4,10 +4,8 @@ using System.Text;
 
 namespace GLORIA.API.Entity
 {
-        public interface IOfficer
+        public interface IUnit
         {
-                float HP { get; }
-
-                float MP { get; }
+                string ID {  get; }
         }
 }

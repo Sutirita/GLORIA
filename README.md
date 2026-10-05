@@ -9,3 +9,6 @@
 General Lobotomy Enrichment API(G.L.O.R.I.A) 是一个为拓展Lobotomy Crop功能提供一个通用API的项目。
 
 
+## TODO
+剩下的我以后再写，哪天第一个release出来了再说。
+

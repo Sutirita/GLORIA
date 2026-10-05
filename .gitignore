@@ -3,3 +3,8 @@
 ################################################################################
 
 /.vs
+/GLORIA/.vs
+/GLORIA/obj
+/GLORIA/GLORIA.csproj
+/GLORIA/GLORIA.csproj.user
+/GLORIA/GLORIA.sln

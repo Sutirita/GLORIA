@@ -5,32 +5,33 @@ using GLORIA.API.Core;
 
 namespace GLORIA.Core
 {
-        public class PluginRegistry : IModluginRegistry
+        internal class PluginRegistry : IModlRegistry
         {
-                private static Dictionary<string, IModPlugin> _pluginLib = new Dictionary<string, IModPlugin>();
+                private static readonly Dictionary<string, IMod> _modLib = new Dictionary<string, IMod>();
 
-                IEnumerable<IModPlugin> IModluginRegistry.Plugins => _pluginLib.Values;
+                IEnumerable<IMod> IModlRegistry.Mods => _modLib.Values;
 
-
-                internal static void Initialize()
+                public void Registet(IMod plugin)
                 {
-                        _pluginLib.Clear();
+                        if(_modLib.ContainsKey(plugin.GUID))
+                        {
+                                Logger.Error("The ");
+                        }
 
-
+                        _modLib[plugin.GUID] = plugin;
                 }
 
-
-                IModPlugin IModluginRegistry.Get(string guid)
+                IMod IModlRegistry.Get(string guid)
                 {
-                        if (!_pluginLib.TryGetValue(guid, out IModPlugin plugin)) return null;
+                        if (!_modLib.TryGetValue(guid, out IMod plugin)) return null;
                         return plugin;
                 }
 
-                bool IModluginRegistry.IsRegistered(string guid)
+                bool IModlRegistry.IsRegistered(string guid)
                 {
-                        if (!_pluginLib.TryGetValue(guid, out IModPlugin plugin)) return false;
+                        if (!_modLib.TryGetValue(guid, out IMod plugin)) return false;
 
-                        return _pluginLib is null;
+                        return plugin is null;
                 }
         }
 }

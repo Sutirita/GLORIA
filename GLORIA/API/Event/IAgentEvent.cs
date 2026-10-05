@@ -2,8 +2,15 @@
 
 namespace GLORIA.API.Event
 {
-        interface IAgentEvent : IBaseEvent
+        public interface IAgentEvent : IBaseEvent
         {
                 IAgent Agent { get; }
         }
+
+
+
+
+
+
+
 }

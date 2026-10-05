@@ -2,22 +2,23 @@
 using System.Collections.Generic;
 using GLORIA.API.Event;
 using GLORIA.API.Core;
+using GLORIA.Core;
 
 namespace GLORIA.Event
 {
-        public class BasicEventBus : IEventBus
+        internal class MainEventBus : IEventBus
         {
                 //类型，插件，监听器列表 三维字典
-                private readonly static Dictionary<Type, Dictionary<IModPlugin, List<Delegate>>> _subscribeLib = new Dictionary<Type, Dictionary<IModPlugin, List<Delegate>>>();
+                private readonly static Dictionary<Type, Dictionary<IMod, List<Delegate>>> _subscribeLib = new Dictionary<Type, Dictionary<IMod, List<Delegate>>>();
 
                 //订阅事件
-                public void Subscribe<T>(IModPlugin plugin, EventListener<T> listener) where T : IBaseEvent
+                public void Subscribe<T>(IMod plugin, EventListener<T> listener) where T : IBaseEvent
                 {
                         Type EventType = typeof(T);
                         //该类型事件首次被订阅
-                        if (!_subscribeLib.TryGetValue(EventType, out Dictionary<IModPlugin, List<Delegate>> SubscribeInfo))
+                        if (!_subscribeLib.TryGetValue(EventType, out Dictionary<IMod, List<Delegate>> SubscribeInfo))
                         {
-                                SubscribeInfo = new Dictionary<IModPlugin, List<Delegate>>
+                                SubscribeInfo = new Dictionary<IMod, List<Delegate>>
                                 {
                                         { plugin, new List<Delegate>{listener} }
                                 };
@@ -30,16 +31,22 @@ namespace GLORIA.Event
                                 SubscribeInfo.Add(plugin, new List<Delegate> { listener });
                                 return;
                         }
-                        //直接添加
+
+                        //不重复添加
+                        if (ListenerList.Contains(listener)) {
+                                Logger.Warning($"Listener:{listener} is already exsist,you need to unsubscribe it first.");
+                                return;
+                        }
+                        //添加
                         ListenerList.Add(listener);
                 }
 
 
-                public void Unsubscribe<T>(IModPlugin plugin, EventListener<T> listener) where T : IBaseEvent
+                public void Unsubscribe<T>(IMod plugin, EventListener<T> listener) where T : IBaseEvent
                 {
                         Type EventType = typeof(T);
 
-                        if (!_subscribeLib.TryGetValue(EventType, out Dictionary<IModPlugin, List<Delegate>> SubscribeInfo)) return;
+                        if (!_subscribeLib.TryGetValue(EventType, out Dictionary<IMod, List<Delegate>> SubscribeInfo)) return;
 
                         if (!SubscribeInfo.TryGetValue(plugin, out List<Delegate> ListenerList)) return;
 
@@ -55,7 +62,7 @@ namespace GLORIA.Event
                 {
                         Type EventType = typeof(T);
 
-                        if (!_subscribeLib.TryGetValue(EventType, out Dictionary<IModPlugin, List<Delegate>> SubscribeInfo)) return;
+                        if (!_subscribeLib.TryGetValue(EventType, out Dictionary<IMod, List<Delegate>> SubscribeInfo)) return;
 
                         foreach (List<Delegate> ListenerList in SubscribeInfo.Values)
                         {

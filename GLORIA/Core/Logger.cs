@@ -9,11 +9,11 @@ namespace GLORIA.Core
         internal class Logger
         {
 
-                private static ManualLogSource Logger;
+                private static ManualLogSource _logger;
 
                 internal static bool Initialize(MainPlugin plugin)
                 {
-                        Logger = plugin.PluginLogger;
+                        _logger = plugin.PluginLogger;
                         return true;
                 }
                 internal static void Shutdown()
@@ -24,35 +24,35 @@ namespace GLORIA.Core
 
                 public static void Message(string message)
                 {
-                        Logger.LogMessage(message);
+                        _logger.LogMessage(message);
                 }
 
 
                 public static void Info(string message)
                 {
-                        Logger.LogInfo(message);
+                        _logger.LogInfo(message);
                 }
 
                 public static void Error(string message)
                 {
-                        Logger.LogError(message);
+                        _logger.LogError(message);
 
                 }
                 public static void Warning(string message)
                 {
-                        Logger.LogWarning(message);
+                        _logger.LogWarning(message);
 
                 }
 
 
                 public static void Fatal(string message)
                 {
-                        Logger.LogFatal(message);
+                        _logger.LogFatal(message);
                 }
 
                 public static void Exception(Exception ex)
                 {
-                        Logger.LogError(ex.ToString());
+                        _logger.LogError(ex.ToString());
                 }
 
 

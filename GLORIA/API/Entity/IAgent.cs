@@ -4,14 +4,25 @@ using System.Text;
 
 namespace GLORIA.API.Entity
 {
-        internal interface IAgent
+        public interface IAgent
         {
+                SefiraEnum Sefira { get; }
+
+                string Name { get; }
+
+                int MaxHP { get; }
+
                 float HP { get; set; }
 
-                float Mental { get; set; }
-                
-                WorkerPrimaryStatExp ExpInfo { get;}
+                int MaxMental { get; set; }
 
+                float Mental { get; set; }
+
+                int MovementSpeed { get; set; }
+
+                int AttackSpeed { get; set; }
+
+                WorkerPrimaryStatExp ExpInfo { get;}
 
 
 

@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GLORIA.API.Map
+namespace GLORIA.Core.Creature
 {
-         enum UPDOWN
+        internal class CreatureGenerator
         {
-                UP,
-                DOWN
+
+
+
+
         }
 }

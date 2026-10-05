@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GLORIA.API.Entity
 {
-        public interface IChildCreature
+        public interface ICreatureDerivative
         {
                 ICreature Parent { get; }
 

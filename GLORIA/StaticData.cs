@@ -6,7 +6,7 @@ namespace GLORIA
         internal class StaticData
         {
                 //plugininfo
-                public const string PLUGIN_GUID = "com.Sutirita.LobotomyCropBaseMod";
+                public const string PLUGIN_GUID = "com.Sutirita.GLORIA";
 
                 public const string PLUGIN_NAME = "GLORIA";
 
@@ -41,13 +41,9 @@ namespace GLORIA
                 public static object[] EmptyObjList = { };
 
 
-
-
-
                 //Text
 
                 public const string CONSOLE_PLACEHOLDER = "Enter Command...";
-
 
                 public const string DESC_NO_FOUND = "Desc No Found!";
 

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GLORIA.API.Entity
 {
-        internal interface IProjectile
+        public interface IProjectile
         {
         }
 }

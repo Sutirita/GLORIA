@@ -4,11 +4,13 @@ using System.Collections.ObjectModel;
 
 namespace GLORIA.API.Core
 {
-        public interface IModluginRegistry
+        public interface IModlRegistry
         {
-                IEnumerable<IModPlugin> Plugins { get; }
+                IEnumerable<IMod> Mods { get; }
 
-                IModPlugin Get(string guid);
+                IMod Get(string guid);
+
+                void Registet(IMod plugin);
 
                 bool IsRegistered(string guid);
         }

@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GLORIA.API.Map
+namespace GLORIA.API.Core.Creature
 {
-        enum LEFTRIGHT
+        public interface ICreatureLoader
         {
 
-                LEFT,
-                RIGHT
+
         }
 }
