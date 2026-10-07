@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GLORIA.API.Entity
+namespace GLORIA.API.Entity.Creature
 {
-        public interface ICreature
+        public interface ICreatureUnit
         {
 
                 float HP { get; }
                 bool EscapeAble { get; }
-                IEnumerable<ICreatureDerivative> Children { get; }
+                IEnumerable<ICreatureDerivativeUnit> Children { get; }
 
 
         }

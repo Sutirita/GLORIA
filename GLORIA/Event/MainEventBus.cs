@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using GLORIA.API.Event;
-using GLORIA.API.Core;
 using GLORIA.Core;
+using GLORIA.API.Core.Mod;
 
 namespace GLORIA.Event
 {

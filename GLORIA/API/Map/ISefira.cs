@@ -1,4 +1,5 @@
-﻿using GLORIA.API.Entity;
+﻿using GLORIA.API.Entity.Creature;
+using GLORIA.API.Entity.Worker;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,11 +11,17 @@ namespace GLORIA.API.Mangement
         {
                 Color SefiraColor { get; }
 
-                IEnumerable<IAgent> Agents { get; }
+                IEnumerable<IAgentUnit> Agents { get; }
 
-                IEnumerable<IOfficer> Officers { get; }
+                IAgentUnit GetAgent(string id);
 
-                IEnumerable<ICreature> Creatures { get; }
+                IEnumerable<IOfficerUnit> Officers { get; }
+
+                IOfficerUnit GetOfficer(string id);
+
+                IEnumerable<ICreatureUnit> Creatures { get; }
+
+                ICreatureUnit GetCreature(string id);
 
                 int OfficerBonusLevel { get; }
 

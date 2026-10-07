@@ -2,10 +2,16 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GLORIA.API.Entity
+namespace GLORIA.Core.Creature
 {
-        public interface IUnit
+        internal class CreatureRegistry
         {
-                string Id {  get; }
+
+
+
+
+
+
+
         }
 }

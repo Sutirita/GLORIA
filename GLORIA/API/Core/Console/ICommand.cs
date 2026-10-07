@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿using System.Collections.Generic;
 using GLORIA.Core.Console;
 
 namespace GLORIA.API.Core.Console

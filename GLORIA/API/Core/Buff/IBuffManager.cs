@@ -1,12 +1,10 @@
 ﻿using GLORIA.API.Entity;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GLORIA.API.Core.Buff
 {
         public interface IBuffManager
         {
+                bool Initialize();
                 void AddBuff(IUnit unit,IUnitBuff buff,int stack=1);
 
                 void RemoveBuff(IUnit unit,IUnitBuff buff,int stack=1);

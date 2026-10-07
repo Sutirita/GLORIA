@@ -23,21 +23,22 @@ namespace GLORIA.Core.Buff
         }
 
 
-        internal class BuffManager :MonoBehaviour,IBuffManager
+        internal class BuffManager : IBuffManager
         {
-                private static readonly Dictionary<IUnit, Dictionary<string, UnitBuffInfo>> _BuffDict = new Dictionary<IUnit, Dictionary<string, UnitBuffInfo>>();
+                private static readonly Dictionary<string, Dictionary<string, UnitBuffInfo>> _BuffDict = new Dictionary<string, Dictionary<string, UnitBuffInfo>>();
 
-
-                private static readonly List<ITickableBuff> tickableBuffs = new List<ITickableBuff>();
-
+                public bool Initialize()
+                {
+                        throw new NotImplementedException();
+                }
 
                 public bool HasBuff(IUnit unit, string buffid)
                 {
                         if (unit is null || string.IsNullOrEmpty(buffid)) return false;
 
-                        if (!_BuffDict.ContainsKey(unit)) return false;
+                        if (!_BuffDict.ContainsKey(unit.Id)) return false;
 
-                        if (!_BuffDict[unit].ContainsKey(buffid)) return false;
+                        if (!_BuffDict[unit.Id].ContainsKey(buffid)) return false;
 
                         return true;
 
@@ -49,7 +50,7 @@ namespace GLORIA.Core.Buff
 
                         if (!HasBuff(unit, buffid)) return false;
 
-                        buff = _BuffDict[unit][buffid].Buff;
+                        buff = _BuffDict[unit.Id][buffid].Buff;
 
                         return true;
 
@@ -61,7 +62,7 @@ namespace GLORIA.Core.Buff
 
                         if (!HasBuff(unit, buffid)) return -1;
 
-                        UnitBuffInfo buffinfo = _BuffDict[unit][buffid];
+                        UnitBuffInfo buffinfo = _BuffDict[unit.Id][buffid];
 
                         return buffinfo.CurrentStack;
 
@@ -73,15 +74,15 @@ namespace GLORIA.Core.Buff
 
                         if (!buff.Stackable && stack != 1) stack = 1;
 
-                        if (!_BuffDict.ContainsKey(unit))
+                        if (!_BuffDict.ContainsKey(unit.Id))
                         {
-                                _BuffDict[unit] = new Dictionary<string, UnitBuffInfo>();
+                                _BuffDict[unit.Id] = new Dictionary<string, UnitBuffInfo>();
                         }
 
 
-                        if (!_BuffDict[unit].ContainsKey(buff.Id))
+                        if (!_BuffDict[unit.Id].ContainsKey(buff.Id))
                         {
-                                _BuffDict[unit].Add(buff.Id, new UnitBuffInfo(buff, stack));
+                                _BuffDict[unit.Id].Add(buff.Id, new UnitBuffInfo(buff, stack));
                         }
 
                         if (!buff.Stackable)
@@ -92,11 +93,13 @@ namespace GLORIA.Core.Buff
                                 }
                                 return;
                         }
-                        UnitBuffInfo info = _BuffDict[unit][buff.Id];
+                        UnitBuffInfo info = _BuffDict[unit.Id][buff.Id];
 
                         if (info.CurrentStack == info.Buff.MaxStack) return;
 
-                        info.CurrentStack += 1;
+
+
+                        info.CurrentStack += stack;
 
                         GLOBAL.EventBus.Publish<BuffAddEvent>(new BuffAddEvent(unit, buff));
 
@@ -106,28 +109,26 @@ namespace GLORIA.Core.Buff
                 {
                         if (!HasBuff(unit, buff.Id)) return;
 
-                        if (!buff.Stackable) _BuffDict[unit].Remove(buff.Id);
+                        if (!buff.Stackable)
+                        {
+                                _BuffDict[unit.Id].Remove(buff.Id);
+                                return;
 
-                        UnitBuffInfo buffinfo = _BuffDict[unit][buff.Id];
+                        }
+
+                        UnitBuffInfo buffinfo = _BuffDict[unit.Id][buff.Id];
 
                         if (buffinfo.CurrentStack > stack) buffinfo.CurrentStack -= stack;
 
-                        _BuffDict[unit].Remove(buff.Id);
+                        if (buffinfo.CurrentStack == 0) _BuffDict[unit.Id].Remove(buff.Id);
 
-                        if (_BuffDict[unit].Keys.Count > 0) return;
+                        if (_BuffDict[unit.Id].Keys.Count > 0) return;
 
-                        _BuffDict.Remove(unit);
+                        _BuffDict.Remove(unit.Id);
 
-
-
-                        GLOBAL.EventBus.Publish<BuffRemoveEvent>(new BuffRemoveEvent(unit,buff));
+                        GLOBAL.EventBus.Publish<BuffRemoveEvent>(new BuffRemoveEvent(unit, buff));
 
                 }
-
-
-
-     
-
 
         }
 }

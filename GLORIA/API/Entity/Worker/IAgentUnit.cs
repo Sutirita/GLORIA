@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GLORIA.API.Entity
+namespace GLORIA.API.Entity.Worker
 {
-        public interface IAgent
+        public interface IAgentUnit
         {
                 SefiraEnum Sefira { get; }
 
@@ -21,9 +21,6 @@ namespace GLORIA.API.Entity
                 int MovementSpeed { get; set; }
 
                 int AttackSpeed { get; set; }
-
-                WorkerPrimaryStatExp ExpInfo { get;}
-
 
 
 

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GLORIA.API.Entity
+namespace GLORIA.API.Entity.Worker
 {
-        public interface IOfficer
+        public interface IOfficerUnit
         {
                 float HP { get; }
 

@@ -1,5 +1,4 @@
-﻿
-namespace GLORIA.API.Core
+﻿namespace GLORIA.API.Core.Mod
 {
         public interface IMod
         {

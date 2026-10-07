@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GLORIA.API.Entity
+namespace GLORIA.API.Entity.Ordeal
 {
-        public interface IUnit
+        public interface IOrdealUnit:IUnit
         {
-                string Id {  get; }
+
+
+
+
+
         }
 }

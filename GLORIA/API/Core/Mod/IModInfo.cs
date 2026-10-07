@@ -1,9 +1,5 @@
-﻿using GLORIA.API.Entity;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GLORIA.API.Core
+﻿
+namespace GLORIA.API.Core.Mod
 {
         public interface IModInfo
         {

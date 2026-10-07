@@ -1,8 +1,7 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace GLORIA.API.Core
+namespace GLORIA.API.Core.Mod
 {
         public interface IModlRegistry
         {
@@ -10,7 +9,7 @@ namespace GLORIA.API.Core
 
                 IMod Get(string guid);
 
-                void Registet(IMod plugin);
+                void Register(IMod plugin);
 
                 bool IsRegistered(string guid);
         }
