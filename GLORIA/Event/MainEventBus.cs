@@ -11,6 +11,15 @@ namespace GLORIA.Event
                 //类型，插件，监听器列表 三维字典
                 private readonly static Dictionary<Type, Dictionary<IMod, List<Delegate>>> _subscribeLib = new Dictionary<Type, Dictionary<IMod, List<Delegate>>>();
 
+
+                public bool Initialize()
+                {
+                        _subscribeLib.Clear();
+                        return true;
+                }
+
+
+
                 //订阅事件
                 public void Subscribe<T>(IMod plugin, EventListener<T> listener) where T : IBaseEvent
                 {
@@ -74,5 +83,6 @@ namespace GLORIA.Event
                         }
                 }
 
+ 
         }
 }

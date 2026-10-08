@@ -11,6 +11,5 @@ namespace GLORIA.API.Entity.Creature
                 bool EscapeAble { get; }
                 IEnumerable<ICreatureDerivativeUnit> Children { get; }
 
-
         }
 }

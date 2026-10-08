@@ -21,6 +21,7 @@ namespace GLORIA
                 }
 
 
+
                 //关闭
                 void OnDestroy()
                 {
