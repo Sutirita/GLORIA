@@ -23,12 +23,15 @@ namespace GLORIA.API.Event.SystemEvent
         public class BuffRemoveEvent : IBaseEvent
         {
                 public IUnit Target { get; }
-                public IUnitBuff Buff { get; }
+                public string BuffId { get; }
 
-                public BuffRemoveEvent(IUnit target, IUnitBuff buff)
+                public int Stack { get; }
+
+                public BuffRemoveEvent(IUnit target, string buffId,int stack)
                 {
                         Target = target;
-                        Buff = buff;
+                        BuffId = buffId;
+                        Stack = stack;
                 }
 
         }

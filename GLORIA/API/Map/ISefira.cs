@@ -11,17 +11,17 @@ namespace GLORIA.API.Mangement
         {
                 Color SefiraColor { get; }
 
-                IEnumerable<IAgentUnit> Agents { get; }
+                IEnumerable<IAgent> Agents { get; }
 
-                IAgentUnit GetAgent(string id);
+                IAgent GetAgent(string id);
 
-                IEnumerable<IOfficerUnit> Officers { get; }
+                IEnumerable<IOfficer> Officers { get; }
 
-                IOfficerUnit GetOfficer(string id);
+                IOfficer GetOfficer(string id);
 
-                IEnumerable<ICreatureUnit> Creatures { get; }
+                IEnumerable<ICreature> Creatures { get; }
 
-                ICreatureUnit GetCreature(string id);
+                ICreature GetCreature(string id);
 
                 int OfficerBonusLevel { get; }
 

@@ -15,16 +15,24 @@ namespace GLORIA.API
 
                 internal static IBuffManager _buffManager;
 
-                
+
                 internal static bool Initialize()
                 {
+                        bool flag = true;
+
                         _eventBus = new MainEventBus();
+
+                        flag = flag && _eventBus.Initialize();
 
                         _modlRegistry = new ModRegistry();
 
+                        flag = flag && _modlRegistry.Initialize();
+
                         _buffManager = new BuffManager();
-                        
-                        return true;
+
+                        flag = flag && _buffManager.Initialize();
+
+                        return flag;
                 }
 
 

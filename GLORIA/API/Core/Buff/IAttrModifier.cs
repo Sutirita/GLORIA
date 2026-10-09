@@ -15,22 +15,22 @@ namespace GLORIA.API.Core.Buff
         }
 
 
-        public interface IStatModifier
+        public interface IAttrModifier
         {
                 IUnitBuff Source { get; }
 
                 ModifierOperation Type { get; }
 
-                StatType Stat { get; }
+                AttrType Stat { get; }
 
                 float Value { get; }
         }
 
 
 
-        public sealed class FlatModifier : IStatModifier
+        public sealed class FlatModifier : IAttrModifier
         {
-                public StatType Stat { get; }
+                public AttrType Stat { get; }
 
                 public ModifierOperation Type => ModifierOperation.Add;
 
@@ -38,7 +38,7 @@ namespace GLORIA.API.Core.Buff
 
                 public float Value { get; }
 
-                public FlatModifier(IUnitBuff source, StatType stat, float value)
+                public FlatModifier(IUnitBuff source, AttrType stat, float value)
                 {
                         Source = source;
                         Stat = stat;
@@ -47,9 +47,9 @@ namespace GLORIA.API.Core.Buff
 
         }
 
-        public sealed class FinalFlatModifier : IStatModifier
+        public sealed class FinalFlatModifier : IAttrModifier
         {
-                public StatType Stat { get; }
+                public AttrType Stat { get; }
 
                 public ModifierOperation Type => ModifierOperation.FinalAdd;
 
@@ -57,7 +57,7 @@ namespace GLORIA.API.Core.Buff
 
                 public float Value { get; }
 
-                public FinalFlatModifier(IUnitBuff source, StatType stat, float value)
+                public FinalFlatModifier(IUnitBuff source, AttrType stat, float value)
                 {
                         Source = source;
                         Stat = stat;
@@ -66,9 +66,9 @@ namespace GLORIA.API.Core.Buff
 
         }
 
-        public sealed class MultModifier : IStatModifier
+        public sealed class MultModifier : IAttrModifier
         {
-                public StatType Stat { get; }
+                public AttrType Stat { get; }
 
                 public IUnitBuff Source { get; }
 
@@ -76,16 +76,16 @@ namespace GLORIA.API.Core.Buff
 
                 public float Value { get; }
 
-                public MultModifier(IUnitBuff source, StatType stat, float value)
+                public MultModifier(IUnitBuff source, AttrType stat, float value)
                 {
                         Source = source;
                         Stat = stat;
                         Value = value;
                 }
         }
-        public sealed class FinalMultModifier : IStatModifier
+        public sealed class FinalMultModifier : IAttrModifier
         {
-                public StatType Stat { get; }
+                public AttrType Stat { get; }
 
                 public IUnitBuff Source { get; }
 
@@ -93,7 +93,7 @@ namespace GLORIA.API.Core.Buff
 
                 public float Value { get; }
 
-                public FinalMultModifier(IUnitBuff source, StatType stat, float value)
+                public FinalMultModifier(IUnitBuff source, AttrType stat, float value)
                 {
                         Source = source;
                         Stat = stat;
@@ -110,13 +110,13 @@ namespace GLORIA.API.Core.Buff
         {
                 public IUnit Unit { get; }
 
-                public StatType Stat { get; }
+                public AttrType Stat { get; }
 
                 public float BaseValue { get; }
 
                 public float Value { get; private set; }
 
-                public StatContext(IUnit unit, StatType stat, float baseValue)
+                public StatContext(IUnit unit, AttrType stat, float baseValue)
                 {
                         Unit = unit;
                         Stat = stat;

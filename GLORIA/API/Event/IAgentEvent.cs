@@ -4,7 +4,7 @@ namespace GLORIA.API.Event
 {
         public interface IAgentEvent : IBaseEvent
         {
-                IAgentUnit Agent { get; }
+                IAgent Agent { get; }
         }
 
 

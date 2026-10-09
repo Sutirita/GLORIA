@@ -4,12 +4,12 @@ using System.Text;
 
 namespace GLORIA.API.Entity.Creature
 {
-        public interface ICreatureUnit
+        public interface ICreature
         {
 
                 float HP { get; }
                 bool EscapeAble { get; }
-                IEnumerable<ICreatureDerivativeUnit> Children { get; }
+                IEnumerable<ICreatureDerivative> Children { get; }
 
         }
 }

@@ -3,62 +3,72 @@ using GLORIA.API.Core;
 using GLORIA.API.Core.Buff;
 using GLORIA.API.Entity;
 using GLORIA.API.Event.SystemEvent;
+using HarmonyLib;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Schema;
 using UnityEngine;
 
 namespace GLORIA.Core.Buff
 {
-        //BUff的层数信息（对于不同层数的效果应由buff本身实现）
-        internal struct UnitBuffInfo
-        {
-                public int CurrentStack;
 
-                public readonly IUnitBuff Buff;
-
-                public UnitBuffInfo(IUnitBuff buff, int stack)
-                {
-                        Buff = buff;
-                        CurrentStack = stack;
-                }
-        }
 
         //对全图单位的buff信息进行管理
         internal class BuffManager : IBuffManager//, MonoBehaviour
         {
+                //三维字典[unit.id:buff.id:buff]，存储全图单位BUff数据
+                private readonly Dictionary<string, Dictionary<string, IUnitBuff>> unitsBuffInfo;
 
-                //[unit.id][buff.id]buffinfo
-                private static readonly Dictionary<string, Dictionary<string, UnitBuffInfo>> _BuffLib = new Dictionary<string, Dictionary<string, UnitBuffInfo>>();
+                //三维字典[unit.id:attr.id:AttrModifier]，存储全图单位增益缓存
+                private readonly Dictionary<string, Dictionary<string, List<IAttrModifier>>> unitsBonusInfo;
 
-                //[unit.id][buff.id]List<IStatModifier>
-                private readonly Dictionary<string, Dictionary<string, List<IStatModifier>>> _ModifierLib = new Dictionary<string, Dictionary<string, List<IStatModifier>>>();
                 public bool Initialize()
                 {
-                        _BuffLib.Clear();
-                        _ModifierLib.Clear();
+                        unitsBuffInfo.Clear();
+                        unitsBonusInfo.Clear();
                         return true;
+                }
+                public BuffManager()
+                {
+                        unitsBuffInfo = new Dictionary<string, Dictionary<string, IUnitBuff>>();
+
+                        unitsBonusInfo = new Dictionary<string, Dictionary<string, List<IAttrModifier>>>();
+                }
+
+                public bool IsBuffedUnit(IUnit unit)
+                {
+                        if (unit is null) return false;
+
+                        if (!unitsBuffInfo.ContainsKey(unit.Id)) return false;
+
+                        return (unitsBuffInfo[unit.Id].Keys.Count > 0);
+
                 }
 
                 public bool HasBuff(IUnit unit, string buffid)
                 {
                         if (unit is null || string.IsNullOrEmpty(buffid)) return false;
 
-                        if (!_BuffLib.ContainsKey(unit.Id)) return false;
+                        if (!IsBuffedUnit(unit)) return false;
 
-                        if (!_BuffLib[unit.Id].ContainsKey(buffid)) return false;
+                        if (!unitsBuffInfo[unit.Id].ContainsKey(buffid)) return false;
 
                         return true;
-
                 }
 
                 public bool TryGetBuff(IUnit unit, string buffid, out IUnitBuff buff)
                 {
                         buff = null;
 
-                        if (!HasBuff(unit, buffid)) return false;
+                        if (!HasBuff(unit, buffid))
+                        {
+                                Logger.Error($"Can not find buff:{buff.Id} in unit:{unit.Id}.");
 
-                        buff = _BuffLib[unit.Id][buffid].Buff;
+                                return false;
+                        }
+
+                        buff = unitsBuffInfo[unit.Id][buffid];
 
                         return true;
 
@@ -66,121 +76,109 @@ namespace GLORIA.Core.Buff
 
                 public int GetBuffStack(IUnit unit, string buffid)
                 {
+                        if (!TryGetBuff(unit, buffid, out IUnitBuff buff)) return -1;
 
-                        if (!HasBuff(unit, buffid)) return -1;
+                        if (buff is IStackableBuff stackable) return stackable.CurrentStack;
 
-                        UnitBuffInfo buffinfo = _BuffLib[unit.Id][buffid];
+                        Logger.Error($"The buff {buff.Id} is unstackable.");
 
-                        return buffinfo.CurrentStack;
+                        return -1;
 
                 }
+
+
+
 
                 public void AddBuff(IUnit unit, IUnitBuff buff, int stack = 1)
                 {
                         if (unit is null || buff is null) return;
 
-                        if (!buff.Stackable && stack != 1) stack = 1;
+                        if (!IsBuffedUnit(unit)) unitsBuffInfo.Add(unit.Id, new Dictionary<string, IUnitBuff>());
 
-                        if (!_BuffLib.ContainsKey(unit.Id))
+                        if (!HasBuff(unit, buff.Id)) unitsBuffInfo[unit.Id].Add(buff.Id, buff);
+
+                        IUnitBuff oldbuff = unitsBuffInfo[unit.Id][buff.Id];
+
+                        if (oldbuff is IStackableBuff stackable)
                         {
-                                _BuffLib[unit.Id] = new Dictionary<string, UnitBuffInfo>();
+                                stackable.SetStack(Math.Max(stackable.CurrentStack + stack, stackable.MaxStack));
                         }
 
-
-                        if (!_BuffLib[unit.Id].ContainsKey(buff.Id))
+                        if (oldbuff is ITickableBuff tickable)
                         {
-                                _BuffLib[unit.Id].Add(buff.Id, new UnitBuffInfo(buff, stack));
+                                tickable.RemainTime = tickable.Duration;
                         }
 
-                        if (!buff.Stackable)
-                        {
-                                if (buff is ITickableBuff tickableBuff)
-                                {
-                                        tickableBuff.RemainTime = tickableBuff.Duration;
-                                }
-                                return;
-                        }
-                        UnitBuffInfo info = _BuffLib[unit.Id][buff.Id];
-
-                        if (info.CurrentStack == info.Buff.MaxStack) return;
-
-                        info.CurrentStack += stack;
-
-                        UpdateUnitBuffState(unit);
-
-                        CalculateUnitStat(unit);
+                        RebuildUnitModifiers(unit);
 
                         GLOBAL.EventBus.Publish<BuffAddEvent>(new BuffAddEvent(unit, buff));
 
                 }
 
-                public void RemoveBuff(IUnit unit, IUnitBuff buff, int stack = 1)
+
+                public void RemoveBuff(IUnit unit, string buffId, int stack = 1)
                 {
-                        if (!HasBuff(unit, buff.Id)) return;
+                        if (unit is null || string.IsNullOrEmpty(buffId)) return;
 
-                        if (!buff.Stackable)
+                        if (!IsBuffedUnit(unit)) return;
+
+                        if (!HasBuff(unit, buffId)) return;
+
+                        IUnitBuff oldbuff = unitsBuffInfo[unit.Id][buffId];
+
+                        if (oldbuff is IStackableBuff stackable)
                         {
-                                _BuffLib[unit.Id].Remove(buff.Id);
-                                return;
-                        }
-
-                        UnitBuffInfo buffinfo = _BuffLib[unit.Id][buff.Id];
-
-                        if (buffinfo.CurrentStack > stack) buffinfo.CurrentStack -= stack;
-
-                        if (buffinfo.CurrentStack == 0) _BuffLib[unit.Id].Remove(buff.Id);
-
-                        UpdateUnitBuffState(unit);
-
-                        CalculateUnitStat(unit);
-
-                        if (_BuffLib[unit.Id].Keys.Count == 0) _BuffLib.Remove(unit.Id);
-
-                        GLOBAL.EventBus.Publish<BuffRemoveEvent>(new BuffRemoveEvent(unit, buff));
-
-                }
-
-
-
-                internal void UpdateUnitBuffState(IUnit unit)
-                {
-
-                        Dictionary<string, List<IStatModifier>> dict = new Dictionary<string, List<IStatModifier>>();
-
-                        foreach (string k in _BuffLib[unit.Id].Keys)
-                        {
-                                IUnitBuff buff = _BuffLib[unit.Id][k].Buff;
-                                foreach (IStatModifier modifier in buff.StatModifiers)
+                                if (stackable.CurrentStack <= stack)
                                 {
-                                        if (!dict.TryGetValue(modifier.Stat.Id, out var modifiers))
-                                        {
-                                                modifiers = new List<IStatModifier>();
-                                                dict.Add(modifier.Stat.Id, modifiers);
-                                        }
-                                        modifiers.Add(modifier);
+                                        unitsBuffInfo[unit.Id].Remove(buffId);
+                                }
+                                else
+                                {
+                                        stackable.SetStack(stackable.CurrentStack - stack);
                                 }
                         }
-
-                        _ModifierLib[unit.Id] = dict;
-
-                }
-
-
-                internal void CalculateUnitStat(IUnit unit)
-                {
-                        //[Stat.Id]List<IStatModifier>
-                        if (!_ModifierLib.TryGetValue(unit.Id, out Dictionary<string, List<IStatModifier>> dict)) return;
-
-                        foreach (string statid in dict.Keys)
+                        else
                         {
-                                StatType type = new StatType(statid);
-                                if (unit.TryGetStat(type, out float baseValue)) ;
-                                float NewValue = Calculate(baseValue, dict[statid]);
-                                unit.SetStat(type, NewValue);
+                                unitsBuffInfo[unit.Id].Remove(buffId);
                         }
+                        RebuildUnitModifiers(unit);
+
+                        if (!IsBuffedUnit(unit)) unitsBuffInfo.Remove(unit.Id);
+
+                        GLOBAL.EventBus.Publish<BuffRemoveEvent>(new BuffRemoveEvent(unit, buffId, stack));
+
                 }
 
-                internal float Calculate(float baseValue, IEnumerable<IStatModifier> modifiers)
+
+                private void RebuildUnitModifiers(IUnit unit)
+                {
+                        if(unit is null) return;
+
+                        if (!IsBuffedUnit(unit)) return; 
+
+                        Dictionary<string, List<IAttrModifier>> Bonus = new Dictionary<string, List<IAttrModifier>>();
+
+                        unitsBonusInfo[unit.Id] = Bonus;
+
+                        foreach(IUnitBuff buff in unitsBuffInfo[unit.Id].Values)
+                        {
+
+                                foreach(IAttrModifier modifier in buff.StatModifiers)
+                                {
+
+                                        if (!Bonus.ContainsKey(modifier.Stat.Value)) Bonus.Add(modifier.Stat.Value, new List<IAttrModifier>());
+
+                                        Bonus[modifier.Stat.Value].Add(modifier);
+
+                                }
+
+                        }
+
+                }
+
+
+
+                internal float Calculate(float baseValue, IEnumerable<IAttrModifier> modifiers)
                 {
                         float add = 0f;
                         float multiply = 1f;
@@ -211,16 +209,34 @@ namespace GLORIA.Core.Buff
                         return ((baseValue + add) * Math.Max(multiply, 0f) + finalAdd) * Math.Max(finalMultiply, 0f);
                 }
 
-                /*
-                void FixedUpdate()
+
+                public bool TryGetAttrBonus(IUnit unit, AttrType type, out IEnumerable<IAttrModifier> modifiers)
                 {
+                        modifiers = new List<IAttrModifier>();
 
+                        if (!unit.Attrs.ContainsKey(type.Value)) return false;
 
+                        modifiers = unitsBonusInfo[unit.Id][type.Value];
 
-
+                        return true;
                 }
 
-                */
 
+
+                public bool TryGetAttrWithBonus(IUnit unit, AttrType type, out float Value)
+                {
+
+                        Value = 0;
+
+                        if (!unit.Attrs.TryGetValue(type.Value, out float baseValue)) return false;
+
+                        Value = Calculate(baseValue, unitsBonusInfo[unit.Id][type.Value]);
+
+                        return true;
+                }
+
+
+
+                
         }
 }

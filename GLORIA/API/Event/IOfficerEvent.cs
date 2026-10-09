@@ -5,6 +5,6 @@ namespace GLORIA.API.Event
 {
         public interface IOfficerEvent:IBaseEvent
         {
-                IOfficerUnit Officer { get; }
+                IOfficer Officer { get; }
         }
 }

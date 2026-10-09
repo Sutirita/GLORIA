@@ -8,7 +8,7 @@ namespace GLORIA.Core.Creature
 {
         internal class CreatureLoader
         {
-                public void Load(ICreatureUnit creature)
+                public void Load(ICreature creature)
                 {
                         throw new NotImplementedException();
                 }

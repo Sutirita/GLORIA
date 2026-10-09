@@ -7,11 +7,11 @@ namespace GLORIA.API.Core.Creature
         {
                 bool Initialize();
 
-                IEnumerable<ICreatureUnit> GetAll();
+                IEnumerable<ICreature> GetAll();
 
-                ICreatureUnit GetCreature(string creatureid);
+                ICreature GetCreature(string creatureid);
 
-                IEnumerable<ICreatureUnit> GetCreatures(SefiraEnum sefira);
+                IEnumerable<ICreature> GetCreatures(SefiraEnum sefira);
 
         }
 }

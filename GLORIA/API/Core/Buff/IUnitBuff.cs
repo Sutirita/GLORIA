@@ -12,14 +12,23 @@ namespace GLORIA.API.Core.Buff
 
         public interface IUnitBuff
         {
-                IUnit Owner { get; }
+                IUnit Owner { get;}
                 string Id { get; }
                 BuffType BuffType { get; }
-                bool Stackable { get; }
-                int MaxStack { get; }
-                IEnumerable<IStatModifier> StatModifiers { get; }
+                IEnumerable<IAttrModifier> StatModifiers { get; }
 
         }
+
+        public interface IStackableBuff : IUnitBuff
+        {
+                int MaxStack { get; }
+                int CurrentStack { get; }
+                void SetStack(int stack);
+        }
+
+
+
+
 
         public interface ITickableBuff : IUnitBuff, ITickable
         {

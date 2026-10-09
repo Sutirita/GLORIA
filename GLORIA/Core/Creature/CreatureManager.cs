@@ -9,7 +9,7 @@ namespace GLORIA.Core.Creature
 {
         internal class CreatureManager : ICreatureManager
         {
-                private readonly Dictionary<string, ICreatureUnit> creaturesLib = new Dictionary<string, ICreatureUnit>();
+                private readonly Dictionary<string, ICreature> creaturesLib = new Dictionary<string, ICreature>();
 
 
                 private readonly Dictionary<SefiraEnum,ISefira> sefiras = new Dictionary<SefiraEnum, ISefira> ();
@@ -19,14 +19,14 @@ namespace GLORIA.Core.Creature
                         throw new NotImplementedException();
                 }
 
-                IEnumerable<ICreatureUnit> ICreatureManager.GetAll()
+                IEnumerable<ICreature> ICreatureManager.GetAll()
                 {
                         return creaturesLib.Values;
                 }
 
-                ICreatureUnit ICreatureManager.GetCreature(string id)
+                ICreature ICreatureManager.GetCreature(string id)
                 {
-                        if(!creaturesLib.TryGetValue(id, out ICreatureUnit creature))
+                        if(!creaturesLib.TryGetValue(id, out ICreature creature))
                         {
                                 Logger.Error($"Can not find Creature{id} in Facility.");
                                 return null;
@@ -35,12 +35,12 @@ namespace GLORIA.Core.Creature
                 }
 
 
-                IEnumerable<ICreatureUnit> ICreatureManager.GetCreatures(SefiraEnum sefiraName)
+                IEnumerable<ICreature> ICreatureManager.GetCreatures(SefiraEnum sefiraName)
                 {
                         if (!sefiras.TryGetValue(sefiraName,out ISefira sefira))
                         {
                                 Logger.Error($"Sefira:{sefiraName} No Found.");
-                                return new List<ICreatureUnit>();
+                                return new List<ICreature>();
                         }
                         return sefira.Creatures;
                 }

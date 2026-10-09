@@ -4,6 +4,6 @@ namespace GLORIA.API.Event
 {
         public interface ICreatureEvent:IBaseEvent
         {
-                ICreatureUnit Creature { get; }
+                ICreature Creature { get; }
         }
 }

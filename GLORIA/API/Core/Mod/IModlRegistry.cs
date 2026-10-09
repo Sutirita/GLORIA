@@ -5,6 +5,7 @@ namespace GLORIA.API.Core.Mod
 {
         public interface IModlRegistry
         {
+                bool Initialize();
                 IEnumerable<IMod> Mods { get; }
 
                 IMod Get(string guid);

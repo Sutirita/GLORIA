@@ -10,6 +10,11 @@ namespace GLORIA.Core.Mod
 
                 IEnumerable<IMod> IModlRegistry.Mods => _modLib.Values;
 
+                public bool Initialize()
+                {
+                        return true;
+                }
+
                 public void Register(IMod mod)
                 {
                         if(_modLib.ContainsKey(mod.GUID))

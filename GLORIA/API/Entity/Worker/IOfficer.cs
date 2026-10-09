@@ -4,10 +4,7 @@ using System.Text;
 
 namespace GLORIA.API.Entity.Worker
 {
-        public interface IOfficerUnit
+        public interface IOfficer
         {
-                float HP { get; }
-
-                float MP { get; }
         }
 }
