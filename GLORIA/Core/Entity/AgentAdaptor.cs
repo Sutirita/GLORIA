@@ -14,29 +14,29 @@ namespace GLORIA.Core.Entity
                 private readonly AgentModel _agent;
                 public string Id => $"Unit_Agent_{_agent.instanceId}";
 
-                public int RVirtue => (int)_attrs[UnitAttrTypes.Worker.RVirtue.Value];
+                public int RVirtue => (int)_attrsbasevalueDic[UnitAttrTypes.Worker.RVirtue.Value];
 
-                public int WVirtue => (int)_attrs[UnitAttrTypes.Worker.WVirtue.Value];
+                public int WVirtue => (int)_attrsbasevalueDic[UnitAttrTypes.Worker.WVirtue.Value];
 
-                public int BVirtue => (int)_attrs[UnitAttrTypes.Worker.BVirtue.Value];
+                public int BVirtue => (int)_attrsbasevalueDic[UnitAttrTypes.Worker.BVirtue.Value];
 
-                public int PVirtue => (int)_attrs[UnitAttrTypes.Worker.PVirtue.Value];
+                public int PVirtue => (int)_attrsbasevalueDic[UnitAttrTypes.Worker.PVirtue.Value];
 
-                public int MaxHP => RVirtue;
+                public int MaxHP => (int)_attrsbasevalueDic[UnitAttrTypes.MaxHP.Value];
 
-                public int MaxMental => WVirtue;
+                public int MaxMental => (int)_attrsbasevalueDic[UnitAttrTypes.MaxMental.Value];
 
-                public int WorkSpeed => BVirtue;
+                public int WorkSpeed => (int)_attrsbasevalueDic[UnitAttrTypes.Worker.WorkSpeed.Value];
 
-                public int WorkProb => BVirtue;
+                public int WorkProb => (int)_attrsbasevalueDic[UnitAttrTypes.Worker.WorkProb.Value];
 
-                public int MoveSpeed => PVirtue;
+                public int MoveSpeed => (int)_attrsbasevalueDic[UnitAttrTypes.Worker.MovementSpeed.Value];
 
-                public int AttackSpeed => PVirtue;
+                public int AttackSpeed => (int)_attrsbasevalueDic[UnitAttrTypes.Worker.AttackSpeed.Value];
 
-                private readonly Dictionary<string, float> _attrs = new Dictionary<string, float>();
+                private readonly Dictionary<string, float> _attrsbasevalueDic = new Dictionary<string, float>();
 
-                public Dictionary<string, float> Attrs => _attrs;
+                public Dictionary<string, float> Attrs => _attrsbasevalueDic;
 
 
 
@@ -63,21 +63,22 @@ namespace GLORIA.Core.Entity
 
                 public AgentAdaptor(AgentModel agentModel)
                 {
+
                         _agent = agentModel;
 
-                        _attrs = new Dictionary<string, float>();
+                        _attrsbasevalueDic = new Dictionary<string, float>();
                       
                         AddAttr(UnitAttrTypes.Worker.RVirtue, _agent.originFortitudeStat);
                         AddAttr(UnitAttrTypes.Worker.WVirtue, _agent.originPrudenceStat);
                         AddAttr(UnitAttrTypes.Worker.BVirtue, _agent.originTemperanceStat);
                         AddAttr(UnitAttrTypes.Worker.PVirtue, _agent.originJusticeStat);
 
-                        AddAttr(UnitAttrTypes.MaxHP, _agent.primaryStat.maxHP);
-                        AddAttr(UnitAttrTypes.MaxMental, _agent.primaryStat.maxMental);
-                        AddAttr(UnitAttrTypes.Worker.WorkProb, _agent.primaryStat.workProb);
-                        AddAttr(UnitAttrTypes.Worker.WorkSpeed, _agent.primaryStat.cubeSpeed);
-                        AddAttr(UnitAttrTypes.Worker.AttackSpeed, _agent.primaryStat.attackSpeed);
-                        AddAttr(UnitAttrTypes.Worker.MovementSpeed, _agent.primaryStat.movementSpeed);
+                        AddAttr(UnitAttrTypes.MaxHP, RVirtue);
+                        AddAttr(UnitAttrTypes.MaxMental, WVirtue);
+                        AddAttr(UnitAttrTypes.Worker.WorkProb, BVirtue);
+                        AddAttr(UnitAttrTypes.Worker.WorkSpeed, BVirtue);
+                        AddAttr(UnitAttrTypes.Worker.AttackSpeed, PVirtue);
+                        AddAttr(UnitAttrTypes.Worker.MovementSpeed, PVirtue);
 
 
 
@@ -89,8 +90,12 @@ namespace GLORIA.Core.Entity
 
                 public void AddAttr(AttrType attr,float baseValue)
                 {
-                        _attrs[attr.Value] = baseValue;
+                        _attrsbasevalueDic[attr.Value] = baseValue;
                 }
+
+
+
+
 
         }
 }

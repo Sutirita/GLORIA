@@ -60,10 +60,12 @@ namespace GLORIA.Core.Buff
                 public bool TryGetBuff(IUnit unit, string buffid, out IUnitBuff buff)
                 {
                         buff = null;
+                        if (unit is null || string.IsNullOrEmpty(buffid)) return false;
+
 
                         if (!HasBuff(unit, buffid))
                         {
-                                Logger.Error($"Can not find buff:{buff.Id} in unit:{unit.Id}.");
+                                Logger.Error($"Can not find buff:{buffid} in unit:{unit.Id}.");
 
                                 return false;
                         }
@@ -91,7 +93,7 @@ namespace GLORIA.Core.Buff
 
                 public void AddBuff(IUnit unit, IUnitBuff buff, int stack = 1)
                 {
-                        if (unit is null || buff is null) return;
+                        if (unit is null || buff is null || stack <=0) return;
 
                         if (!IsBuffedUnit(unit)) unitsBuffInfo.Add(unit.Id, new Dictionary<string, IUnitBuff>());
 
