@@ -214,10 +214,17 @@ namespace GLORIA.Core.Buff
                 {
                         modifiers = new List<IAttrModifier>();
 
-                        if (!unit.Attrs.ContainsKey(type.Value)) return false;
+                        if (!IsBuffedUnit(unit)) return false;
+
+                        if (!unit.Attrs.ContainsKey(type.Value))
+                        {
+                                Logger.Error($"Can not find attribute:{type.Value} in unit:{unit.Id}.");
+                                return false;
+                        }
+
+                        if(!unitsBonusInfo.ContainsKey(type.Value)) return false;
 
                         modifiers = unitsBonusInfo[unit.Id][type.Value];
-
                         return true;
                 }
 
