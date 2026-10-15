@@ -89,7 +89,7 @@ namespace GLORIA.API.Core.Buff
 
                 public IUnitBuff Source { get; }
 
-                public ModifierOperation Type => ModifierOperation.Multiply;
+                public ModifierOperation Type => ModifierOperation.FinalMultiply;
 
                 public float Value { get; }
 

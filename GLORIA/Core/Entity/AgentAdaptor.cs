@@ -34,7 +34,7 @@ namespace GLORIA.Core.Entity
 
                 public int AttackSpeed => PVirtue;
 
-                private Dictionary<string, float> _attrs = new Dictionary<string, float>();
+                private readonly Dictionary<string, float> _attrs = new Dictionary<string, float>();
 
                 public Dictionary<string, float> Attrs => _attrs;
 
@@ -74,9 +74,8 @@ namespace GLORIA.Core.Entity
 
                         AddAttr(UnitAttrTypes.MaxHP, _agent.primaryStat.maxHP);
                         AddAttr(UnitAttrTypes.MaxMental, _agent.primaryStat.maxMental);
-                        AddAttr(UnitAttrTypes.Worker.WorkSpeed, _agent.primaryStat.workProb);
+                        AddAttr(UnitAttrTypes.Worker.WorkProb, _agent.primaryStat.workProb);
                         AddAttr(UnitAttrTypes.Worker.WorkSpeed, _agent.primaryStat.cubeSpeed);
-                        AddAttr(UnitAttrTypes.Worker.AttackSpeed, _agent.primaryStat.attackSpeed);
                         AddAttr(UnitAttrTypes.Worker.AttackSpeed, _agent.primaryStat.attackSpeed);
                         AddAttr(UnitAttrTypes.Worker.MovementSpeed, _agent.primaryStat.movementSpeed);
 

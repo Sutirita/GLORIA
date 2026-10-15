@@ -101,7 +101,7 @@ namespace GLORIA.Core.Buff
 
                         if (oldbuff is IStackableBuff stackable)
                         {
-                                stackable.SetStack(Math.Max(stackable.CurrentStack + stack, stackable.MaxStack));
+                                stackable.SetStack(Math.Min(stackable.CurrentStack + stack, stackable.MaxStack));
                         }
 
                         if (oldbuff is ITickableBuff tickable)
@@ -154,13 +154,13 @@ namespace GLORIA.Core.Buff
                 {
                         if(unit is null) return;
 
-                        if (!IsBuffedUnit(unit)) return; 
-
                         Dictionary<string, List<IAttrModifier>> Bonus = new Dictionary<string, List<IAttrModifier>>();
 
                         unitsBonusInfo[unit.Id] = Bonus;
 
-                        foreach(IUnitBuff buff in unitsBuffInfo[unit.Id].Values)
+                        if (!IsBuffedUnit(unit)) return;
+
+                        foreach (IUnitBuff buff in unitsBuffInfo[unit.Id].Values)
                         {
 
                                 foreach(IAttrModifier modifier in buff.StatModifiers)
@@ -222,9 +222,13 @@ namespace GLORIA.Core.Buff
                                 return false;
                         }
 
-                        if(!unitsBonusInfo.ContainsKey(type.Value)) return false;
+                        if (!unitsBonusInfo.TryGetValue(unit.Id, out var bonusByAttr))
+                                return false;
 
-                        modifiers = unitsBonusInfo[unit.Id][type.Value];
+                        if (!bonusByAttr.TryGetValue(type.Value, out var list))
+                                return false;
+
+                        modifiers = list;
                         return true;
                 }
 
@@ -235,15 +239,24 @@ namespace GLORIA.Core.Buff
 
                         Value = 0;
 
+                        if (unit is null) return false;
+
                         if (!unit.Attrs.TryGetValue(type.Value, out float baseValue)) return false;
 
-                        Value = Calculate(baseValue, unitsBonusInfo[unit.Id][type.Value]);
+                        Value = baseValue;
+
+                        if (!IsBuffedUnit(unit)) return true;
+                        
+                        if (unitsBonusInfo[unit.Id].TryGetValue(type.Value, out var modifiers))
+                        {
+                                Value = Calculate(baseValue, modifiers);
+                        }
 
                         return true;
                 }
 
 
 
-                
+
         }
 }

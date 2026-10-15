@@ -35,7 +35,7 @@ namespace GLORIA.Core.Mod
                 {
                         if (!_modLib.TryGetValue(guid, out IMod mod)) return false;
 
-                        return mod is null;
+                        return !( mod is null);
                 }
         }
 }
