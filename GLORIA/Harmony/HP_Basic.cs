@@ -1,7 +1,9 @@
 ﻿using Assets.Scripts.UI.Utils;
 using Credit;
+using GLORIA.API;
 using HarmonyLib;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection.Emit;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -24,15 +26,37 @@ namespace GLORIA.Harmony
                         //添加MOD按钮
                         //MOD管理页面待做，暂时复制设置按钮
 
-                        GameObject ButtonArea = GameObject.Find("TitleCanvas").transform.GetChild(2).GetChild(4).GetChild(0).gameObject;
-                        GameObject NewOption = GameObject.Instantiate(ButtonArea.transform.GetChild(6).gameObject, ButtonArea.transform);
-                        GameObject Frame = NewOption.transform.GetChild(1).gameObject;
-                        NewOption.name = "MOD_Option";
-                        NewOption.transform.SetSiblingIndex(6);
-                        NewOption.transform.GetChild(0).GetComponent<LocalizeTextLoadScript>().SetTextForcely("MOD");
-                        NewOption.transform.localPosition = new Vector3(355, 95.5f, 0);
+                        GameObject ButtonArea = GameObject.Find("TitleCanvas/InnerLayer/MenuFrame/ButtonArea/");
 
-                        if (NewOption is null || Frame is null) return;
+                        GameObject NewOption = GameObject.Instantiate(ButtonArea.transform.GetChild(4).gameObject, ButtonArea.transform);
+
+                        NewOption.name = "MOD_Option";
+
+                        NewOption.transform.SetSiblingIndex(6);
+
+                        GameObject Frame = NewOption.transform.GetChild(1).gameObject;
+
+                        GameObject ModNum =Frame.transform.GetChild(0).gameObject;
+
+                        ModNum.name = "Mod_Num";
+                        GameObject ModNum_Desc = ModNum.transform.GetChild(0).gameObject;
+
+                        Text ModNum_Desc_TextComp = ModNum_Desc.GetComponent<Text>();
+
+                        ModNum_Desc_TextComp.text = $"已加载 {GLOBAL.ModlRegistry.Mods.Count()} 个模组";
+
+                        ModNum_Desc_TextComp.fontSize = 8;
+                                
+                        GameObject Text = NewOption.transform.GetChild(0).gameObject;
+
+                        Text.GetComponent<LocalizeTextLoadScript>().SetTextForcely("MOD");
+
+
+
+
+
+                        NewOption.transform.localPosition = new Vector3(409.4955f,80.6365f, 0);
+
 
 
                         EventTrigger et = NewOption.GetComponent<EventTrigger>();
