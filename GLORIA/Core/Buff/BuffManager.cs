@@ -1,14 +1,12 @@
 ﻿using GLORIA.API;
 using GLORIA.API.Core;
 using GLORIA.API.Core.Buff;
+using GLORIA.API.Core.Buff.Modifier;
 using GLORIA.API.Entity;
 using GLORIA.API.Event.SystemEvent;
-using HarmonyLib;
+
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Schema;
-using UnityEngine;
 
 namespace GLORIA.Core.Buff
 {
@@ -130,6 +128,8 @@ namespace GLORIA.Core.Buff
 
                         if (oldbuff is IStackableBuff stackable)
                         {
+                                if (stack <= 0) return;
+
                                 if (stackable.CurrentStack <= stack)
                                 {
                                         unitsBuffInfo[unit.Id].Remove(buffId);

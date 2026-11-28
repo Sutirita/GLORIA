@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace GLORIA.API.Mangement
 {
-        internal interface ISefira
+        public interface ISefira
         {
                 Color SefiraColor { get; }
 

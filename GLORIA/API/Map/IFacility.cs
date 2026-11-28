@@ -1,11 +1,9 @@
 ﻿using GLORIA.API.Map;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace GLORIA.API.Mangement
 {
-        internal interface IFacility
+        public interface IFacility
         {
                 IEnumerable<ISefira> Sefiras {  get; }
 

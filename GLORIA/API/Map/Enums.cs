@@ -4,7 +4,6 @@ using System.Text;
 
 namespace GLORIA.API.Map
 {
-
         public enum DIRECTIONS
         {
                 UP,

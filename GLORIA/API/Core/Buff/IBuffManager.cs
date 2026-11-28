@@ -1,4 +1,5 @@
-﻿using GLORIA.API.Entity;
+﻿using GLORIA.API.Core.Buff.Modifier;
+using GLORIA.API.Entity;
 using System.Collections.Generic;
 
 namespace GLORIA.API.Core.Buff

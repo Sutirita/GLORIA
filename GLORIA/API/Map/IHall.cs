@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GLORIA.API.Map
 {
-        interface IHall
+        public interface IHall
         {
 
                 //走廊上下方只能与收容室相连

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GLORIA.API.Map
 {
-        interface IMapRoom
+        public interface IMapRoom
         {
                 IHall GetHall(LEFTRIGHT direction);
                 IMapRoom GetRoom(LEFTRIGHT direction);

@@ -1,4 +1,4 @@
-﻿namespace GLORIA.Core.Console
+﻿namespace GLORIA.API.Core.Console
 {
 
         public interface ICommandListener

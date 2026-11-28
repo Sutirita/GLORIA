@@ -8,9 +8,4 @@ namespace GLORIA.API.Event
         }
 
 
-
-
-
-
-
 }

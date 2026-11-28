@@ -6,7 +6,6 @@ namespace GLORIA.API.Core.Creature
 {
         public interface ICreatureLocalizeData
         {
-
                 string GetName(string lang, int observeLevel);
 
                 string GetCodeName(string lang, int observeLevel);

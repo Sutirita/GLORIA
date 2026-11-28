@@ -3,31 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
-using UnityEngine.UI;
+using GLORIA.API.Core.Console;
 
 namespace GLORIA.Core.Console
 {
-        /// <summary>
-        /// 命令的执行结果
-        /// </summary>
-        public enum CommandResult
-        {
-                Success,
-                BadSyntax,
-                WrongContext,
-                Error
-        }
-        /// <summary>
-        /// 用于表示命令执行场景的上下文
-        /// </summary>
-        public enum CommandContext
-        {
-                None,
-                MainMenu,
-                Management,
-                Story,
-        }
-
 
         internal struct LogEntry
         {

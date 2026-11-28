@@ -9,7 +9,6 @@ namespace GLORIA.API.Core.Creature
 
         public readonly struct RiskLevel
         {
-
                 public string Id { get; }
 
                 public int Level { get; }

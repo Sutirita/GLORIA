@@ -9,3 +9,7 @@
 /GLORIA/GLORIA.csproj.user
 /GLORIA/GLORIA.sln
 /GLORIA/bin/Debug
+/GLORIA/API/obj
+*.user
+*.csproj
+/GLORIA/API/Properties

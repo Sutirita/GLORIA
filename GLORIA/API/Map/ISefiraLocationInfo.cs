@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GLORIA.API.Map
 {
-        internal interface ISefiraLocationInfo
+        public interface ISefiraLocationInfo
         {
 
 
